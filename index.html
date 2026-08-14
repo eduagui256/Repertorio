@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Repertório ENEM</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00342B">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Repertório">
 <style>
 :root {
   --c-primary:#00342B; --c-primary-light:rgba(0,52,43,0.08);
@@ -330,6 +336,9 @@ body{font-family:var(--font);background:var(--c-bg);overscroll-behavior:none;}
 </style>
 </head>
 <body>
+<div id="app-splash" style="position:fixed;inset:0;z-index:99999;background:#C3F400;display:flex;align-items:center;justify-content:center;transition:opacity .35s ease;">
+  <img src="Capa_app.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">
+</div>
 <div class="app" id="app">
 
 <div class="toast" id="toast"><div class="toast-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span id="toast-msg">Salvo</span></div>
@@ -1546,6 +1555,25 @@ try{
   }
 }catch(e){
   try{document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById('s-login').classList.add('active');}catch(e2){}
+}
+</script>
+<script>
+(function () {
+  var splash = document.getElementById('app-splash');
+  if (!splash) return;
+  setTimeout(function () {
+    splash.style.opacity = '0';
+    setTimeout(function () { splash.style.display = 'none'; }, 350);
+  }, 700);
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function (err) {
+      console.warn('Falha ao registrar service worker:', err);
+    });
+  });
 }
 </script>
 </body>
